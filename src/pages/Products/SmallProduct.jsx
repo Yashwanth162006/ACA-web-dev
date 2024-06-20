@@ -5,7 +5,7 @@ const SmallProduct = (props) => {
     <div className='product-for-cart'>
       <img src={props.src} />
       <div>
-        <p>{props.name}</p>
+        <h4 className='cart-item-name'>{props.name}</h4>
         <p>{props.brand}</p>
         <p>${props.price}</p>
       </div>

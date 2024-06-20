@@ -36,33 +36,27 @@ import OrderList from "./pages/Admin/OrderList.jsx";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import AdminDashboard from "./pages/Admin/AdminDashboard.jsx";
 import ProductCarousel from "./pages/Products/ProductCarousel.jsx";
-import DSLR_1 from "./Images/DSLR/DSLR-1.png";
-import DSLR_2 from "./Images/DSLR/DSLR-2.png";
-import DSLR_3 from "./Images/DSLR/DSLR-3.png";
-import Sketchers_1 from "./Images/Sketchers/Sketchers-1.png";
-import Sketchers_2 from "./Images/Sketchers/Sketchers-2.png";
-import Sketchers_3 from "./Images/Sketchers/Sketchers-3.png";
-import Ipad_1 from "./Images/Ipad/Ipad-1.png";
-import Ipad_2 from "./Images/Ipad/Ipad-2.png";
-import Ipad_3 from "./Images/Ipad/Ipad-3.png";
-import MacbookPro_1 from "./Images/Macbook Pro/Macbook Pro-1.png";
-import MacbookPro_2 from "./Images/Macbook Pro/Macbook Pro-2.png";
-import MacbookPro_3 from "./Images/Macbook Pro/Macbook Pro-3.png";
+import Product_List from './All_Products.js'
+import ShopContextProvider from "./contexts/shopContext.jsx";
+import RelatedProducts from './pages/Products/RelatedProducts.jsx';
 
+function createProductCarousel(product){
+  const path = 'productCarousel'+product.id;
+  return <Route path={path} element={<ProductCarousel src1={product.src1} src2={product.src2} src3={product.src3} title={product.name} price={product.price} description={product.description} brand={product.brand} rating={product.rating} quantity={product.quantity} stock={product.stock} id={product.id}/>}/>
+}
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/" element={<Home />}>
-        <Route index element={<ProductCarousel src1={DSLR_1} src2={DSLR_2} src3={DSLR_3} title='DSLR' price={159} description="Best of canon.." brand='Canon' rating={5} quantity={5} stock={3}/>} />
-        <Route path='productCarousel1' element={<ProductCarousel src1={DSLR_1} src2={DSLR_2} src3={DSLR_3} title='DSLR' price={159} description="Best of canon.." brand='Canon' rating={5} quantity={5} stock={3}/>}/>
-        <Route path='productCarousel2' element={<ProductCarousel src1={Sketchers_1} src2={Sketchers_2} src3={Sketchers_3} title='Shoes' price={99} description="From Sketchers.." brand='Sketchers' rating={4} quantity={6} stock={2}/>}/>
-        <Route path='productCarousel3' element={<ProductCarousel src1={Ipad_1} src2={Ipad_2} src3={Ipad_3} title='Ipad' price={543} description="Best tablets ever made.." brand='Apple' rating={5} quantity={4} stock={6}/>} />
-        <Route path='productCarousel4' element={<ProductCarousel src1={MacbookPro_1} src2={MacbookPro_2} src3={MacbookPro_3} title='Macbook Pro' price={890} description="High performance.." brand='Apple' rating={5} quantity={5} stock={3}/>} />
+        <Route index element={<ProductCarousel src1={Product_List[0].src1} src2={Product_List[0].src2} src3={Product_List[0].src3} title='DSLR' price={159} description="Best of canon.." brand='Canon' rating={5} quantity={5} stock={3} id={1}/>} />
+        {Product_List.slice(0,4).map(createProductCarousel)}
       </Route>
       <Route path="/favorites" element={<Favorites />} />
-      <Route path="/product/:id" element={<ProductDetails />} />
+      <Route path="/product/:id" element={<ProductDetails />} >
+        <Route path='relatedproducts' element={<RelatedProducts/>} />
+      </Route>
       <Route path="/cart" element={<Cart />} />
       <Route path="/shop" element={<Shop />} />
 
@@ -91,7 +85,9 @@ const router = createBrowserRouter(
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <PayPalScriptProvider>
-      <RouterProvider router={router} />
+      <ShopContextProvider>
+        <RouterProvider router={router} />
+      </ShopContextProvider>
     </PayPalScriptProvider>
   </Provider>
 );

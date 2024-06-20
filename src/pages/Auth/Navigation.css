@@ -54,3 +54,27 @@ span{
     color: #f1069b ;
     text-decoration: none;
 }
+.nav-cart-count{
+    position: relative;
+    top: 5px;
+    left: 17px;
+    background-color: #f1069b;
+    width: 15px;
+    height: 15px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.nav-like-count{
+    position: relative;
+    top: 5px;
+    left: 15px;
+    background-color: #f1069b;
+    width: 15px;
+    height: 15px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

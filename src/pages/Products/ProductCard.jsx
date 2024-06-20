@@ -4,19 +4,17 @@ import {NavLink} from 'react-router-dom'
 
 const ProductCard = (props) => {
   return (
-    <NavLink id='product-card-link' to={props.link}  className={({isActive}) => isActive ? "active-product-card": "" }>
       <div className='product-card'>
         <img src={props.src} />
-        <h3>{props.name}</h3>
-        <Ratings rating={props.rating}/>
+        <NavLink to={`/product/${props.id}`} className='product-details-link'><h4>{props.name}</h4></NavLink>
+        <div className='product-card-rating'><Ratings rating={props.rating}/></div>
         <div className='product-basic-info'>
           <p>{props.brand}</p>
-          <i class='fa-regular fa-heart'></i>
           <button>${props.price}</button>
         </div>
         <button><i class='fa-solid fa-cart-shopping'></i></button>
+        <i class='fa-regular fa-heart'></i>
     </div>
-    </NavLink>
   )
 }
 

@@ -21,15 +21,17 @@ const Navigation = () => {
               </NavLink>
             </div>
             <div className='menu-items'>
+            <div className='nav-cart-count'>0</div>
               <NavLink to='/cart'className="nav-links">
                 <i class="fa-solid fa-cart-shopping"></i>
                 <span>- Cart</span>
               </NavLink>
             </div>
             <div className='menu-items'>
+            <div className='nav-like-count'>0</div>
               <NavLink to='favorites'className="nav-links">
                 <i class="fa-solid fa-heart"></i>
-                <span>- Liked</span>
+                <span>- Liked</span>              
               </NavLink>
             </div>
           </div>
