@@ -1,6 +1,19 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { ShopContext } from '../../contexts/ShopContext';
 
 const SmallProduct = (props) => {
+  function createArray(n) {
+    const arr = [];
+    for (let i = 1; i <= n; i++) {
+        arr.push(i);
+    }
+    return arr;
+  }
+  function createOption(value){
+    return <option value={value}>{value}</option>
+  }
+  const {removeFromCart} = useContext(ShopContext);
+
   return (
     <div className='product-for-cart'>
       <img src={props.src} />
@@ -10,12 +23,9 @@ const SmallProduct = (props) => {
         <p>${props.price}</p>
       </div>
       <select name="qty" id="quantity-of-products">
-        <option value={1}>1</option>
-        <option value={2}>2</option>
-        <option value={3}>3</option>
-        <option value={4}>4</option>
+        {createArray(props.quantity).map(createOption)}
       </select>
-      <i class="fa-solid fa-trash-can"></i>
+      <i class="fa-solid fa-trash-can" onClick={()=>removeFromCart(Number(props.id))}></i>
     </div>
   )
 }

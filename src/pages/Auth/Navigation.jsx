@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './Navigation.css'
 import {NavLink} from 'react-router-dom'
+import { ShopContext } from '../../contexts/ShopContext'
 
 
 const Navigation = () => {
+  
+  const {cartItems} = useContext(ShopContext);
+  function length(arr){
+    return arr.filter((num)=>num!==0).length;
+  }
   return (
     <div className="main-div">
       <nav className='menu-bar'>
@@ -21,7 +27,7 @@ const Navigation = () => {
               </NavLink>
             </div>
             <div className='menu-items'>
-            <div className='nav-cart-count'>0</div>
+            <div className='nav-cart-count'>{length(cartItems)}</div>
               <NavLink to='/cart'className="nav-links">
                 <i class="fa-solid fa-cart-shopping"></i>
                 <span>- Cart</span>

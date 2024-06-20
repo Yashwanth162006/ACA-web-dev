@@ -6,7 +6,8 @@ import "react-toastify/dist/ReactToastify.css";
 const App = () => {
   return (
     <div className="app">
-      <ToastContainer />
+      <ToastContainer  autoClose={1000}
+        pauseOnHover={false}/>
       <Navigation />
       <main className="py-3">
         <Outlet />

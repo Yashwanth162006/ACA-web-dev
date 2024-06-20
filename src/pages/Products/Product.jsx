@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Ratings from './Ratings'
 import { NavLink } from 'react-router-dom'
+import  { ShopContext } from '../../contexts/ShopContext'
 
 const Product = (props) => {
+  const {addToCart} = useContext(ShopContext)
   return (
     <div className = 'special-product'>
       <img src={props.src}/>
@@ -11,7 +13,7 @@ const Product = (props) => {
         <div className='special-product-info-left'>
           <p>{props.brand}</p>
           <div className='special-product-rating'><Ratings rating={props.rating}/></div>
-          <button>Add to cart</button>
+          <button onClick={()=>addToCart(props.id,1)}>Add to cart</button>
         </div>
         <div className='special-product-info-right'>
           <button>${props.price}</button>

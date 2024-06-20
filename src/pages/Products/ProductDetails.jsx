@@ -1,5 +1,5 @@
-import React,{useContext} from 'react'
-import { ShopContext } from '../../contexts/shopContext'
+import React,{useContext,useState} from 'react'
+import { ShopContext } from '../../contexts/ShopContext'
 import {  useParams } from 'react-router'
 import { Outlet} from 'react-router'
 import  './ProductDetails.css'
@@ -7,11 +7,25 @@ import Ratings from './Ratings'
 import { NavLink } from 'react-router-dom'
 import RelatedProducts from './RelatedProducts'
 const ProductDetails = () => {
-  const {Product_List,setSelectedProduct} = useContext(ShopContext); 
+  const [quantity,setQuantity] = useState(1);
+  const {Product_List,setSelectedProduct,addToCart} = useContext(ShopContext); 
   const {id} = useParams();
   const product = Product_List.find((product)=>product.id === Number(id));
+  function createArray(n) {
+    const arr = [];
+    for (let i = 1; i <= n; i++) {
+        arr.push(i);
+    }
+    return arr;
+}
   function handleClick(){
     setSelectedProduct(product);
+  }
+  function handleQuantity(event){
+    setQuantity(Number(event.target.value));
+  }
+  function createOption(value){
+    return <option value={value}>{value}</option>
   }
   return (
     <div className='product-details-container'>
@@ -31,15 +45,11 @@ const ProductDetails = () => {
           <div className='product-description-rating'><Ratings /></div>
           <div className='qty'>
             <p>Quantity:</p>
-            <select name='qty'>
-                <option value='1'>1</option>
-                <option value='2'>2</option>
-                <option value='3'>3</option>
-                <option value='4'>4</option>
-                <option value='5'>5</option>
+            <select name='qty' onClick={handleQuantity}>
+                {createArray(product.quantity).map(createOption)}
             </select>
           </div>
-          <button>Add To Cart</button>
+          <NavLink to='/cart'><button onClick={()=>addToCart(Number(id),quantity)}>Add To Cart</button></NavLink>
         </div>
       </div>
       <div className='product-review'>

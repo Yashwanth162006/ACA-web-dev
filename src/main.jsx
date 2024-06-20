@@ -37,7 +37,7 @@ import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import AdminDashboard from "./pages/Admin/AdminDashboard.jsx";
 import ProductCarousel from "./pages/Products/ProductCarousel.jsx";
 import Product_List from './All_Products.js'
-import ShopContextProvider from "./contexts/shopContext.jsx";
+import ShopContextProvider from "./contexts/ShopContext.jsx";
 import RelatedProducts from './pages/Products/RelatedProducts.jsx';
 
 function createProductCarousel(product){

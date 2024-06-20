@@ -11,7 +11,7 @@ import 'react-multi-carousel/lib/styles.css';
 const Home = () => {
   function createProductCard(product){
     const link = 'productCarousel'+product.id;
-    return <ProductCard src={product.src1} name={product.name} rating={product.rating} brand={product.brand} price={product.price} link={link} id={product.id} />
+    return <ProductCard src={product.src1} name={product.name} rating={product.rating} brand={product.brand} price={product.price} link={link} id={product.id}/>
   }
   function createSpecialProduct(product){
     return <Product src={product.src1} name={product.name} brand={product.brand} rating={product.rating} price={product.price} id={product.id}/>
@@ -40,7 +40,7 @@ const Home = () => {
       </div>
       <div className='home-container-lower-mid'>
         <h1>Special Products</h1>
-        <button>Shop</button>
+        <NavLink to='/shop'><button>Shop</button></NavLink>
       </div>
       <div className='home-container-bottom'>
         {Product_List.slice(4,10).map(createSpecialProduct)}

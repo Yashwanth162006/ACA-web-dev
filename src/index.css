@@ -366,7 +366,7 @@
     font-weight: 400;
     font-size: 3rem;
 }
-.home-container-lower-mid>button{
+.home-container-lower-mid button{
     background-color: #f1069b;
     color: white;
     height: 40px;
@@ -377,6 +377,9 @@
     font-family: 'poppins';
     font-size: 1.1rem;
     cursor: pointer;
+}
+.home-container-lower-mid button:hover{
+    background-color: #c71669;
 }
 .home-container-bottom{
     width: 1000px;

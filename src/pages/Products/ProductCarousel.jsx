@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import Ratings from './Ratings';
 import { NavLink } from 'react-router-dom';
+import { ShopContext } from '../../contexts/ShopContext';
 
 const ProductCarousel = (props) => {
+  const {addToCart} = useContext(ShopContext);
   return (
       <div className='product-carousel'>
         <NavLink to={`product/${props.id}`}><img src={props.src1}/></NavLink>
@@ -19,7 +21,7 @@ const ProductCarousel = (props) => {
             <Ratings rating={props.rating}/>
             <p>Quantity: {props.quantity}</p>
             <p className='stock'>In Stock: {props.stock}</p>
-            <button><i class='fa-solid fa-cart-shopping'></i></button>
+            <button onClick={()=>addToCart(props.id,1)}><i class='fa-solid fa-cart-shopping'></i></button>
           </div>
         </div>
       </div>
