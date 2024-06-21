@@ -590,12 +590,25 @@
 }
 .cart-summary>button{
     color: white;
+    font-family: 'poppins';
+    font-size: medium;
     background-color: #f1069b;
     border: none;
     border-radius: 5px;
     width: 90%;
     height: 36px;
     cursor: pointer;
+}
+.Empty-Cart>p{
+    font-size:medium;
+    margin-left: 30px;
+}
+.cart-to-shop-link{
+    text-decoration: none;
+    color: #cb347a;
+}
+.cart-to-shop-link:hover{
+    text-decoration: underline;
 }
 /* shop */
 .shop-container{

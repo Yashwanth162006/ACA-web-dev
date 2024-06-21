@@ -2,6 +2,8 @@ import React, { useContext } from 'react'
 import { ShopContext } from '../../contexts/ShopContext';
 
 const SmallProduct = (props) => {
+  
+  const {addToCart,removeFromCart} = useContext(ShopContext);
   function createArray(n) {
     const arr = [];
     for (let i = 1; i <= n; i++) {
@@ -12,7 +14,10 @@ const SmallProduct = (props) => {
   function createOption(value){
     return <option value={value}>{value}</option>
   }
-  const {removeFromCart} = useContext(ShopContext);
+  function handleQuantity(event){
+    let newNum = Number(event.target.value);
+    addToCart(props.id,newNum);
+  }
 
   return (
     <div className='product-for-cart'>
@@ -22,7 +27,7 @@ const SmallProduct = (props) => {
         <p>{props.brand}</p>
         <p>${props.price}</p>
       </div>
-      <select name="qty" id="quantity-of-products">
+      <select name="qty" id="quantity-of-products" defaultValue={props.quantityChosen} onClick={handleQuantity}>
         {createArray(props.quantity).map(createOption)}
       </select>
       <i class="fa-solid fa-trash-can" onClick={()=>removeFromCart(Number(props.id))}></i>

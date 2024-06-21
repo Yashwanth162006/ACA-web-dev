@@ -6,9 +6,21 @@ import { ShopContext } from '../../contexts/ShopContext'
 
 const Navigation = () => {
   
-  const {cartItems} = useContext(ShopContext);
+  const {cartItems,favouriteItems} = useContext(ShopContext);
   function length(arr){
-    return arr.filter((num)=>num!==0).length;
+    let sum = 0;
+    for(let i=0;i<arr.length;i++){
+      sum=sum+arr[i];
+    }
+    return sum;
+  }
+  function length1(arr){
+    let sum=0;
+    for(let i=0;i<arr.length;i++){
+        sum=sum+arr[i];
+    }
+    console.log(sum);
+    return sum;
   }
   return (
     <div className="main-div">
@@ -27,14 +39,14 @@ const Navigation = () => {
               </NavLink>
             </div>
             <div className='menu-items'>
-            <div className='nav-cart-count'>{length(cartItems)}</div>
+              {length(cartItems)===0?null:<div className='nav-cart-count'>{length(cartItems)}</div>}
               <NavLink to='/cart'className="nav-links">
                 <i class="fa-solid fa-cart-shopping"></i>
                 <span>- Cart</span>
               </NavLink>
             </div>
             <div className='menu-items'>
-            <div className='nav-like-count'>0</div>
+              {length1(favouriteItems)===0?null:<div className='nav-like-count'>{length1(favouriteItems)}</div>}
               <NavLink to='favorites'className="nav-links">
                 <i class="fa-solid fa-heart"></i>
                 <span>- Liked</span>              

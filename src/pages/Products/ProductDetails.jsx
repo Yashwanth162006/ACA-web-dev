@@ -8,7 +8,7 @@ import { NavLink } from 'react-router-dom'
 import RelatedProducts from './RelatedProducts'
 const ProductDetails = () => {
   const [quantity,setQuantity] = useState(1);
-  const {Product_List,setSelectedProduct,addToCart} = useContext(ShopContext); 
+  const {Product_List,setSelectedProduct,addToCart,favouriteItems,addToFavourites,removeFromFavourites} = useContext(ShopContext); 
   const {id} = useParams();
   const product = Product_List.find((product)=>product.id === Number(id));
   function createArray(n) {
@@ -27,13 +27,20 @@ const ProductDetails = () => {
   function createOption(value){
     return <option value={value}>{value}</option>
   }
+  function toggleFromFavourites(){
+    if(favouriteItems[product.id-1]===0){
+      addToFavourites(product.id);
+    }else{
+      removeFromFavourites(product.id);
+    }
+  }
   return (
     <div className='product-details-container'>
       <NavLink to='/'><button className='button'><i class="fa-solid fa-arrow-left"></i>Go Back</button></NavLink>
       <div className='product-details-product'>
         <div className='product-details-product-left'>
           <img src={product.src1}/>
-            <i class='fa-regular fa-heart'></i>
+            <i class='fa-regular fa-heart' onClick={toggleFromFavourites}></i>
         </div>
         <div className='product-details-product-right'>
           <h1 className='name'>{product.name}</h1>

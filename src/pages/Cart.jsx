@@ -3,6 +3,7 @@ import SmallProduct from './Products/SmallProduct'
 import DSLR_1 from '../Images/DSLR/DSLR-1.png'
 import Product_List from '../All_Products'
 import { ShopContext } from '../contexts/ShopContext'
+import { NavLink } from 'react-router-dom'
 
 const Cart = () => {
   const {cartItems} = useContext(ShopContext);
@@ -10,7 +11,7 @@ const Cart = () => {
   function createCartItem(item,i){
     const product = Product_List[i];
     if(item !== 0){
-      return <SmallProduct key={product.id} src={product.src1} name={product.name} brand={product.brand} price={product.price} id={product.id} quantity={product.quantity}/>
+      return <SmallProduct key={product.id} src={product.src1} name={product.name} brand={product.brand} price={product.price} id={product.id} quantity={product.quantity} quantityChosen={cartItems[product.id-1]}/>
     }
   }
   function priceCalculator(arr){
@@ -34,16 +35,16 @@ const Cart = () => {
         <div className='shopping-cart'>
           <div className='products-in-cart'>
             < p>Shopping Cart</p>
-            <div className='cart-products-div'>
+            {itemCalculator(cartItems)===0?<div className='Empty-Cart'><p>Your cart is empty. <NavLink to='/shop' className='cart-to-shop-link'> Go to Shop</NavLink></p></div>:<div className='cart-products-div'>
               {cartItems.map(createCartItem)}
-            </div>
+            </div>}
           </div>
-          <div className='cart-summary'>
+          {itemCalculator(cartItems)===0?null:<div className='cart-summary'>
               <h5>Summary</h5>
               <h6>Items: {itemCalculator(cartItems)}</h6>
               <h4>Total: ${priceCalculator(cartItems)}</h4>
               <button>Proceed To Checkout</button>
-          </div>
+          </div>}
       </div>
     </div>
   )

@@ -4,9 +4,13 @@ import 'react-multi-carousel/lib/styles.css';
 import Ratings from './Ratings';
 import { NavLink } from 'react-router-dom';
 import { ShopContext } from '../../contexts/ShopContext';
-
+import { toast } from 'react-toastify'
 const ProductCarousel = (props) => {
   const {addToCart} = useContext(ShopContext);
+  function handleAddToCart(){
+    addToCart(props.id,1);
+    toast("Added to Cart");
+  }
   return (
       <div className='product-carousel'>
         <NavLink to={`product/${props.id}`}><img src={props.src1}/></NavLink>
@@ -21,7 +25,7 @@ const ProductCarousel = (props) => {
             <Ratings rating={props.rating}/>
             <p>Quantity: {props.quantity}</p>
             <p className='stock'>In Stock: {props.stock}</p>
-            <button onClick={()=>addToCart(props.id,1)}><i class='fa-solid fa-cart-shopping'></i></button>
+            <button onClick={handleAddToCart}><i class='fa-solid fa-cart-shopping'></i></button>
           </div>
         </div>
       </div>

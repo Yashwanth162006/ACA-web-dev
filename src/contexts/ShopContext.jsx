@@ -24,27 +24,22 @@ function getDefaultCart(){
     }
     return cart;
 }
-function getDefaultFavourites(){
-    let favourites = [];
-    for(let i=0;i<Product_List.length;i++){
-        favourites[i] = false;
-    }
-    return favourites;
-}
+
 function ShopContextProvider(props){
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [cartItems, setCartItems] = useState(loadFromLocalStorage('cartItems', getDefaultCart()));
-    const [favouriteItems,setFavouriteItems] = useState(getDefaultFavourites());
+    const [favouriteItems,setFavouriteItems] = useState(loadFromLocalStorage('favouriteItems',getDefaultCart()));
 
     useEffect(() => {
         saveToLocalStorage('cartItems', cartItems);
       }, [cartItems]);
-    
+      useEffect(() => {
+        saveToLocalStorage('favouriteItems', favouriteItems);
+      }, [favouriteItems]);
     function addToCart(id,qty){
         let items = [...cartItems];
         items[id-1] = qty;
         setCartItems(items);
-        toast('Added To Cart');
     }
     function removeFromCart(id){
         let items = [...cartItems];
@@ -52,23 +47,22 @@ function ShopContextProvider(props){
         setCartItems(items);
         toast('Removed From Cart');
     }
-    function addToFavourites(id){
-        let favourites = favouriteItems;
-        for(let i=0;i<favouriteItems.length;i++){
-            if(id===i+1){
-                favourites[i] = true;
-            }
+    function addToFavourites(id) {
+        let favourites = [...favouriteItems];
+        if (id >= 1 && id <= favourites.length) {
+            favourites[id - 1] = 1;
         }
         setFavouriteItems(favourites);
+        console.log(favourites);
     }
-    function removeFromFavourites(id){
-        let favourites = favouriteItems;
-        for(let i=0;i<favouriteItems.length;i++){
-            if(id===i+1){
-                favourites[i] = false;
-            }
+
+    function removeFromFavourites(id) {
+        let favourites = [...favouriteItems];
+        if (id >= 1 && id <= favourites.length) {
+            favourites[id - 1] = 0;
         }
         setFavouriteItems(favourites);
+        console.log(favourites);
     }
     const contextValue = {Product_List,selectedProduct,setSelectedProduct,cartItems,setCartItems,favouriteItems,setFavouriteItems,addToCart,removeFromCart,addToFavourites,removeFromFavourites};
     return <ShopContext.Provider value={contextValue}>
