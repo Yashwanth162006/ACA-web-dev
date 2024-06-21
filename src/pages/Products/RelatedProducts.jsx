@@ -1,6 +1,6 @@
 import React,{useContext} from 'react'
 import ProductCard from './ProductCard'
-import { ShopContext } from '../../contexts/shopContext'
+import { ShopContext } from '../../contexts/ShopContext'
 
 function RelatedProducts(){
     const {Product_List,selectedProduct} = useContext(ShopContext)

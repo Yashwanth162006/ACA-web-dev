@@ -588,7 +588,7 @@
     font-weight: 500;
     margin-top: 20px;
 }
-.cart-summary>button{
+.cart-summary button{
     color: white;
     font-family: 'poppins';
     font-size: medium;
@@ -598,6 +598,9 @@
     width: 90%;
     height: 36px;
     cursor: pointer;
+}
+.cart-summary button:hover{
+    background-color: #c71669;
 }
 .Empty-Cart>p{
     font-size:medium;
@@ -831,4 +834,16 @@
 }
 .shop-product-card-bottom-right>button:hover{
     background-color: rgb(223, 221, 221);
+}
+/* Placing the Order */
+.place-order-container{
+    width: calc(100% - 50px);
+    background-color: rgb(15,15,15);
+    position: absolute;
+    top: 0;
+    left: 50px;
+    height: 100vh;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
 }

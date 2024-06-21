@@ -6,8 +6,8 @@ import { ShopContext } from '../contexts/ShopContext'
 import { NavLink } from 'react-router-dom'
 
 const Cart = () => {
-  const {cartItems} = useContext(ShopContext);
-
+  const {cartItems,isLogedIn} = useContext(ShopContext);
+  const state = isLogedIn;
   function createCartItem(item,i){
     const product = Product_List[i];
     if(item !== 0){
@@ -43,7 +43,7 @@ const Cart = () => {
               <h5>Summary</h5>
               <h6>Items: {itemCalculator(cartItems)}</h6>
               <h4>Total: ${priceCalculator(cartItems)}</h4>
-              <button>Proceed To Checkout</button>
+              <NavLink to='/shipping'><button>Proceed To Checkout</button></NavLink>
           </div>}
       </div>
     </div>

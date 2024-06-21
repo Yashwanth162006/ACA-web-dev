@@ -1,12 +1,14 @@
 import React, { useContext } from 'react'
 import './Navigation.css'
-import {NavLink} from 'react-router-dom'
+import {NavLink,useNavigate} from 'react-router-dom'
 import { ShopContext } from '../../contexts/ShopContext'
+import { toast } from 'react-toastify'
 
 
 const Navigation = () => {
   
-  const {cartItems,favouriteItems} = useContext(ShopContext);
+  const {cartItems,favouriteItems,isLogedIn,setIsLogedIn} = useContext(ShopContext);
+  const navigate = useNavigate();
   function length(arr){
     let sum = 0;
     for(let i=0;i<arr.length;i++){
@@ -21,6 +23,11 @@ const Navigation = () => {
     }
     console.log(sum);
     return sum;
+  }
+  function handleLogout(){
+    setIsLogedIn(0)
+    toast("Successfully Loged Out");
+    navigate('/login');
   }
   return (
     <div className="main-div">
@@ -54,12 +61,12 @@ const Navigation = () => {
             </div>
           </div>
           <div className='bottom'>
-            <div className='menu-items'>
+            {isLogedIn?<button onClick={handleLogout} className='logout-button'>Logout</button>:<div className='menu-items'>
               <NavLink to='/login'className="nav-links">
                 <i class="fa-solid fa-arrow-right-to-bracket"></i>
                 <span>- Login</span>
               </NavLink>
-            </div>
+            </div>}
             <div className='menu-items'>
               <NavLink to='/register'className="nav-links">
                 <i class="fa-solid fa-user-plus"></i>

@@ -78,3 +78,21 @@ span{
     justify-content: center;
     align-items: center;
 }
+.logout-button{
+    background-color: black;
+    color: white;
+    font-family: 'poppins';
+    height: 30px;
+    border: none;
+    font-size: medium;
+    visibility: hidden;
+    transition: visibility 0.3s ease-in-out;
+}
+.logout-button:hover {
+    background-color: rgb(65, 63, 63);
+    cursor: pointer;
+}
+.menu-bar:hover button{
+    visibility: visible;
+    transition:  0.4s ease-in-out;
+}
