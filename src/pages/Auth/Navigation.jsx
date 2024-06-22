@@ -7,7 +7,7 @@ import { toast } from 'react-toastify'
 
 const Navigation = () => {
   
-  const {cartItems,favouriteItems,isLogedIn,setIsLogedIn} = useContext(ShopContext);
+  const {cartItems,favouriteItems,isLogedIn,setIsLogedIn,userName} = useContext(ShopContext);
   const navigate = useNavigate();
   function length(arr){
     let sum = 0;
@@ -71,10 +71,13 @@ const Navigation = () => {
               </NavLink>
             </div>}
             <div className='menu-items'>
-              <NavLink to='/register'className="nav-links">
+              {isLogedIn?<NavLink to='/profile' className="nav-links">
+                <i class="fa-solid fa-user"></i>
+                <span>{userName}</span>
+                </NavLink>:<NavLink to='/register'className="nav-links">
                 <i class="fa-solid fa-user-plus"></i>
                 <span>- Register</span>
-              </NavLink>
+              </NavLink>}
             </div>
           </div>
       </nav>

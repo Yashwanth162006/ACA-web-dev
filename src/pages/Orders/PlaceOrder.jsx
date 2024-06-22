@@ -4,9 +4,10 @@ import Products from '../Products/Products'
 import product_list from '../../All_Products'
 import { ShopContext } from '../../contexts/ShopContext'
 import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router'
 const PlaceOrder = () => {
-  const {cartItems,shippingAddress} = useContext(ShopContext);
-  
+  const {cartItems,shippingAddress,clearCart} = useContext(ShopContext);
+  const navigate = useNavigate();
   function createOrderProduct(qty,i){
     if(qty === 0){
       return;
@@ -21,6 +22,14 @@ const PlaceOrder = () => {
       p=p+(product.price)*arr[i];
     }
     return p;
+  }
+  function placeOrder(){
+    toast('order placed successfully');
+    navigate('/cart');
+    setTimeout(()=>{
+      clearCart();
+      toast('Cart Cleared');
+    },1500);
   }
   return (
     <div className='final-summary'>
@@ -54,7 +63,7 @@ const PlaceOrder = () => {
           <p>Method: PayPal</p>
         </div>
       </div>
-      <button onClick={()=>toast('Order Successful')}>Place Order</button>
+      <button onClick={placeOrder}>Place Order</button>
     </div>
   )
 }

@@ -2,7 +2,6 @@ import React,{createContext,useState,useEffect} from "react";
 import Product_List from "../All_Products";
 import { ToastContainer,toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import userList from '../All_Users';
 
 const saveToLocalStorage = (key, value) => {
     localStorage.setItem(key, JSON.stringify(value));
@@ -31,6 +30,9 @@ function ShopContextProvider(props){
     const [favouriteItems,setFavouriteItems] = useState(loadFromLocalStorage('favouriteItems',getDefaultCart()));
     const [shippingAddress,setShippingAddress] = useState(null);
     const [isLogedIn,setIsLogedIn] = useState(loadFromLocalStorage('loginState',0));
+    const [userName,setUserName] = useState(loadFromLocalStorage('userName',""));
+    const [userEmailAddress,setUserEmailAddress] = useState(loadFromLocalStorage('userEmailAddress',""));
+    const [userPassword,setUserPassword] = useState(loadFromLocalStorage('userPassword',""));
     useEffect(() => {
         saveToLocalStorage('cartItems', cartItems);
       }, [cartItems]);
@@ -43,6 +45,15 @@ function ShopContextProvider(props){
       useEffect(()=>{
         saveToLocalStorage('loginState',isLogedIn);
       },[isLogedIn]);
+      useEffect(()=>{
+        saveToLocalStorage('userName',userName)
+      },[userName]);
+      useEffect(()=>{
+        saveToLocalStorage('userEmailAddress',userEmailAddress)
+      },[userEmailAddress]);
+      useEffect(()=>{
+        saveToLocalStorage('userPassword',userPassword)
+      },[userPassword])
     function addToCart(id,qty){
         let items = [...cartItems];
         items[id-1] = qty;
@@ -52,7 +63,6 @@ function ShopContextProvider(props){
         let items = [...cartItems];
         items[id-1] = 0;
         setCartItems(items);
-        toast('Removed From Cart');
     }
     function addToFavourites(id) {
         let favourites = [...favouriteItems];
@@ -71,7 +81,10 @@ function ShopContextProvider(props){
         setFavouriteItems(favourites);
         console.log(favourites);
     }
-    const contextValue = {Product_List,selectedProduct,setSelectedProduct,cartItems,setCartItems,favouriteItems,setFavouriteItems,addToCart,removeFromCart,addToFavourites,removeFromFavourites,shippingAddress,setShippingAddress,isLogedIn,setIsLogedIn};
+    function clearCart(){
+      setCartItems(getDefaultCart());
+    }
+    const contextValue = {Product_List,selectedProduct,setSelectedProduct,cartItems,setCartItems,favouriteItems,setFavouriteItems,addToCart,removeFromCart,addToFavourites,removeFromFavourites,shippingAddress,setShippingAddress,isLogedIn,setIsLogedIn,userName,setUserName,userEmailAddress,setUserEmailAddress,userPassword,setUserPassword,clearCart};
     return <ShopContext.Provider value={contextValue}>
         {props.children}
     </ShopContext.Provider>

@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { ShopContext } from '../../contexts/ShopContext';
+import { toast } from 'react-toastify';
 
 const SmallProduct = (props) => {
   
@@ -18,7 +19,10 @@ const SmallProduct = (props) => {
     let newNum = Number(event.target.value);
     addToCart(props.id,newNum);
   }
-
+  function removeItem(){
+    removeFromCart(Number(props.id));
+    toast('Removed From cart');
+  }
   return (
     <div className='product-for-cart'>
       <img src={props.src} />
@@ -30,7 +34,7 @@ const SmallProduct = (props) => {
       <select name="qty" id="quantity-of-products" defaultValue={props.quantityChosen} onClick={handleQuantity}>
         {createArray(props.quantity).map(createOption)}
       </select>
-      <i class="fa-solid fa-trash-can" onClick={()=>removeFromCart(Number(props.id))}></i>
+      <i class="fa-solid fa-trash-can" onClick={removeItem}></i>
     </div>
   )
 }
