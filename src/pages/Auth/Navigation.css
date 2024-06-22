@@ -79,14 +79,18 @@ span{
     align-items: center;
 }
 .logout-button{
-    background-color: black;
+    background-color: rgb(39, 37, 37);
     color: white;
     font-family: 'poppins';
-    height: 30px;
+    height: 40px;
     border: none;
     font-size: medium;
     visibility: hidden;
     transition: visibility 0.3s ease-in-out;
+}
+.logout-profile{
+    display: flex;
+    flex-direction: column;
 }
 .logout-button:hover {
     background-color: rgb(65, 63, 63);
@@ -95,4 +99,19 @@ span{
 .menu-bar:hover button{
     visibility: visible;
     transition:  0.4s ease-in-out;
+}
+.profile-button{
+    background-color: rgb(39, 37, 37);
+    color: white;
+    font-family: 'poppins';
+    height: 40px;
+    border: none;
+    font-size: medium;
+    visibility: hidden;
+    transition: visibility 0.3s ease-in-out;
+    width: 100%;
+}
+.profile-button:hover{
+    background-color: rgb(65, 63, 63);
+    cursor: pointer;
 }

@@ -49,7 +49,7 @@ const ProductDetails = () => {
           <p>Brand: {product.brand}</p>
           <p>In Stock: {product.stock}</p>
           <p>Quantity: {product.quantity}</p>
-          <div className='product-description-rating'><Ratings /></div>
+          <div className='product-description-rating'><Ratings rating={product.rating}/></div>
           <div className='qty'>
             <p>Quantity:</p>
             <select name='qty' onClick={handleQuantity}>
@@ -61,8 +61,16 @@ const ProductDetails = () => {
       </div>
       <div className='product-review'>
         <div className='product-review-left'>
-          <button>Write Your Review</button>
-          <button>All Reviews</button>
+        <NavLink to='userReviewContainer' className={({ isActive }) => 
+    ['side-nav-links', isActive ? "myActiveClass" : null]
+      .filter(Boolean)
+      .join(" ")
+  }><button>Your Review</button></NavLink>
+        <NavLink to='allreviews' className={({ isActive }) => 
+          ['side-nav-links', isActive ? "myActiveClass" : null]
+            .filter(Boolean)
+            .join(" ")
+        }><button>All Reviews</button></NavLink>
           <NavLink to='relatedproducts' className={({ isActive }) => 
     ['side-nav-links', isActive ? "myActiveClass" : null]
       .filter(Boolean)

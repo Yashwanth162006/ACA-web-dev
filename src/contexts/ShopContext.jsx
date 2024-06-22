@@ -30,7 +30,7 @@ function ShopContextProvider(props){
     const [cartItems, setCartItems] = useState(loadFromLocalStorage('cartItems', getDefaultCart()));
     const [favouriteItems,setFavouriteItems] = useState(loadFromLocalStorage('favouriteItems',getDefaultCart()));
     const [shippingAddress,setShippingAddress] = useState(null);
-    const [isLogedIn,setIsLogedIn] = useState(0);
+    const [isLogedIn,setIsLogedIn] = useState(loadFromLocalStorage('loginState',0));
     useEffect(() => {
         saveToLocalStorage('cartItems', cartItems);
       }, [cartItems]);
@@ -40,6 +40,9 @@ function ShopContextProvider(props){
       useEffect(()=>{
         saveToLocalStorage('selectedProduct',selectedProduct);
       },[selectedProduct]);
+      useEffect(()=>{
+        saveToLocalStorage('loginState',isLogedIn);
+      },[isLogedIn]);
     function addToCart(id,qty){
         let items = [...cartItems];
         items[id-1] = qty;

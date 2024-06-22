@@ -39,6 +39,8 @@ import ProductCarousel from "./pages/Products/ProductCarousel.jsx";
 import Product_List from './All_Products.js'
 import ShopContextProvider from "./contexts/ShopContext.jsx";
 import RelatedProducts from './pages/Products/RelatedProducts.jsx';
+import UserReviewContainer from './pages/Products/userReviewContainer.jsx';
+import AllReviews from './pages/Products/AllReviews.jsx'
 
 function createProductCarousel(product){
   const path = 'productCarousel'+product.id;
@@ -49,20 +51,19 @@ const router = createBrowserRouter(
     <Route path="/" element={<App />}>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/" element={<Home />}>
-        <Route index element={<ProductCarousel src1={Product_List[0].src1} src2={Product_List[0].src2} src3={Product_List[0].src3} title='DSLR' price={159} description="Best of canon.." brand='Canon' rating={5} quantity={5} stock={3} id={1}/>} />
-        {Product_List.slice(0,4).map(createProductCarousel)}
-      </Route>
+      <Route path="/" element={<Home />}/>
       <Route path="/favorites" element={<Favorites />} />
       <Route path="/product/:id" element={<ProductDetails />} >
+        <Route path='' element={<UserReviewContainer />}/>
         <Route path='relatedproducts' element={<RelatedProducts/>} />
+        <Route path='allreviews' element={<AllReviews/>} />
+        <Route path='userReviewContainer' element={<UserReviewContainer />}/>
       </Route>
       <Route path="/cart" element={<Cart />} />
       <Route path="/shop" element={<Shop />} />
-
+      <Route path="/profile" element={<Profile />} />
       {/* Registered users */}
       <Route path="" element={<PrivateRoute />}>
-        <Route path="/profile" element={<Profile />} />
         <Route path="/shipping" element={<Shipping />} />
         <Route path="/placeorder" element={<PlaceOrder />} />
         <Route path="/order/:id" element={<Order />} />

@@ -276,6 +276,7 @@
     border-radius: 10px;
     display: flex;
     flex-direction: column;
+    transition: transform 0.5s ease;
 }
 .product-carousel img{
     width: 95%;
@@ -336,6 +337,25 @@
 .product-carousel-bottom-right>button>i{
     font-size: large;
 }
+.prev-button{
+    position: relative;
+    right: 30px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+.next-button{
+    position: relative;
+    left: 42vw;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+.carousel-button-group{
+    position: absolute;
+    top: 50%
+}
+
 /* Home page Mid */
 .home-container-mid{
     width: 85%;

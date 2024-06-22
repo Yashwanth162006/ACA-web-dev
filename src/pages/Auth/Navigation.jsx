@@ -61,7 +61,10 @@ const Navigation = () => {
             </div>
           </div>
           <div className='bottom'>
-            {isLogedIn?<button onClick={handleLogout} className='logout-button'>Logout</button>:<div className='menu-items'>
+            {isLogedIn?<div className='logout-profile'>
+              <button onClick={handleLogout} className='logout-button'>Logout</button>
+              <NavLink to='/profile'><button className='profile-button'>Profile</button></NavLink>
+              </div>:<div className='menu-items'>
               <NavLink to='/login'className="nav-links">
                 <i class="fa-solid fa-arrow-right-to-bracket"></i>
                 <span>- Login</span>

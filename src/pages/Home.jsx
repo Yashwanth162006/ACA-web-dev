@@ -1,14 +1,15 @@
-import React from 'react'
+import React, { useContext,useEffect,useRef,useState } from 'react'
 import ProductCard from './Products/ProductCard';
 import ProductCarousel from './Products/ProductCarousel';
-import { Outlet,NavLink} from 'react-router-dom';
+import { NavLink} from 'react-router-dom';
 import Product_List from '../All_Products';
 import Product from './Products/Product';
-import DSLR_1 from '../Images/DSLR/DSLR-1.png';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 
 const Home = () => {
+  
+
   function createProductCard(product){
     const link = 'productCarousel'+product.id;
     return <ProductCard src={product.src1} name={product.name} rating={product.rating} brand={product.brand} price={product.price} link={link} id={product.id}/>
@@ -16,11 +17,23 @@ const Home = () => {
   function createSpecialProduct(product){
     return <Product src={product.src1} name={product.name} brand={product.brand} rating={product.rating} price={product.price} id={product.id}/>
   }
+  function createProductCarousel(product){
+    return <ProductCarousel src1={product.src1} src2={product.src2} src3={product.src3} title={product.name} price={product.price} description={product.description} brand={product.brand} rating={product.rating} quantity={product.quantity} stock={product.stock} id={product.id}/>
+  }
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 0 },
       items: 1
     }
+  };
+  const ButtonGroup = ({ next, previous, goToSlide, ...rest }) => {
+    const { carouselState: { currentSlide } } = rest;
+    return (
+      <div className="carousel-button-group">
+        <button onClick={() => previous()} className='prev-button'><i className='fa-solid fa-chevron-left'></i></button>
+        <button onClick={() => next()} className='next-button'><i className='fa-solid fa-chevron-right'></i></button>
+      </div>
+    );
   };
   return (
     <div className='home-container'>
@@ -28,11 +41,12 @@ const Home = () => {
         <div className='product-cards-container'>
           {Product_List.slice(0,4).map(createProductCard)}
         </div>
-        <button><i class="fa-solid fa-chevron-left"></i></button>
         <div className='product-carousel-container'>
-          <Outlet />
+          <Carousel responsive={responsive} infinite={true} autoPlay={true} autoPlaySpeed={3000} renderButtonGroupOutside={true} customButtonGroup={<ButtonGroup />} removeArrowOnDeviceType={["desktop"]}
+          >
+            {Product_List.slice(0,4).map(createProductCarousel)}
+          </Carousel>
         </div>
-        <button><i class="fa-solid fa-chevron-right"></i></button>
       </div>
       <div className='home-container-mid'>
         <h2>Welcome to our e-commerce platform! </h2>
