@@ -53,7 +53,7 @@ function ShopContextProvider(props){
       },[userEmailAddress]);
       useEffect(()=>{
         saveToLocalStorage('userPassword',userPassword)
-      },[userPassword])
+      },[userPassword]);
     function addToCart(id,qty){
         let items = [...cartItems];
         items[id-1] = qty;

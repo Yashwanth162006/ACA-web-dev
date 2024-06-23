@@ -1,8 +1,9 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect, useContext} from 'react'
 import ProductTabs from './Products/ProductTabs'
 import DSLR_1 from '../Images/DSLR/DSLR-1.png'
 import Product_List from '../All_Products.js';
 import { NavLink } from 'react-router-dom';
+import { ShopContext } from '../contexts/ShopContext.jsx';
 
 
 const Shop = () => {
