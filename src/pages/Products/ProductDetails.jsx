@@ -40,7 +40,7 @@ const ProductDetails = () => {
       <div className='product-details-product'>
         <div className='product-details-product-left'>
           <img src={product.src1}/>
-            <i class='fa-regular fa-heart' onClick={toggleFromFavourites}></i>
+            {favouriteItems[product.id-1]===0?<i class='fa-regular fa-heart' onClick={toggleFromFavourites}></i>:<i class='fa-solid fa-heart' onClick={toggleFromFavourites} style={{color:'#f1069b'}}></i>}
         </div>
         <div className='product-details-product-right'>
           <h1 className='name'>{product.name}</h1>
