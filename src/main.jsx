@@ -36,24 +36,24 @@ import OrderList from "./pages/Admin/OrderList.jsx";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import AdminDashboard from "./pages/Admin/AdminDashboard.jsx";
 import ProductCarousel from "./pages/Products/ProductCarousel.jsx";
-import Product_List from './All_Products.js'
 import ShopContextProvider from "./contexts/ShopContext.jsx";
 import RelatedProducts from './pages/Products/RelatedProducts.jsx';
 import UserReviewContainer from './pages/Products/userReviewContainer.jsx';
 import AllReviews from './pages/Products/AllReviews.jsx'
-
+import ResetPassword from './pages/Auth/ResetPassword.jsx'
 function createProductCarousel(product){
-  const path = 'productCarousel'+product.id;
-  return <Route path={path} element={<ProductCarousel src1={product.src1} src2={product.src2} src3={product.src3} title={product.name} price={product.price} description={product.description} brand={product.brand} rating={product.rating} quantity={product.quantity} stock={product.stock} id={product.id}/>}/>
+  const path = 'productCarousel'+product._id;
+  return <Route path={path} element={<ProductCarousel src1={product.src1} src2={product.src2} src3={product.src3} title={product.name} price={product.price} description={product.description} brand={product.brand} rating={product.rating} quantity={product.quantity} stock={product.stock} id={product._id}/>}/>
 }
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/resetPassword" element={<ResetPassword />} />
       <Route path="/" element={<Home />}/>
       <Route path="/favorites" element={<Favorites />} />
-      <Route path="/product/:id" element={<ProductDetails />} >
+      <Route path="/product/:_id" element={<ProductDetails />} >
         <Route path='' element={<UserReviewContainer />}/>
         <Route path='relatedproducts' element={<RelatedProducts/>} />
         <Route path='allreviews' element={<AllReviews/>} />
@@ -66,7 +66,7 @@ const router = createBrowserRouter(
       <Route path="" element={<PrivateRoute />}>
         <Route path="/shipping" element={<Shipping />} />
         <Route path="/placeorder" element={<PlaceOrder />} />
-        <Route path="/order/:id" element={<Order />} />
+        <Route path="/order/:_id" element={<Order />} />
       </Route>
 
       <Route path="/admin" element={<AdminRoute />}>
@@ -86,9 +86,9 @@ const router = createBrowserRouter(
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <PayPalScriptProvider>
-      <ShopContextProvider>
-        <RouterProvider router={router} />
-      </ShopContextProvider>
+        <ShopContextProvider>
+          <RouterProvider router={router} />
+        </ShopContextProvider>
     </PayPalScriptProvider>
   </Provider>
 );

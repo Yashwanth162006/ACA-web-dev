@@ -9,10 +9,10 @@ const ProductTabs = (props) => {
     toast("Added to Cart");
   }
   function toggleFromFavourites(){
-    if(favouriteItems[props.id-1]===0){
-      addToFavourites(props.id);
+    if(favouriteItems.find(item => item.productId === props.id).fav){
+      removeFromFavourites(props.id)
     }else{
-      removeFromFavourites(props.id);
+      addToFavourites(props.id)
     }
   }
   return (
@@ -20,7 +20,7 @@ const ProductTabs = (props) => {
       <div className='shop-product-card-top'>
         <NavLink to={`/product/${props.id}`}><img src={props.src1}/></NavLink>
         <div class='shop-product-card-icons'>
-          {favouriteItems[props.id-1]===0?<i class='fa-regular fa-heart' onClick={toggleFromFavourites}></i>:<i class='fa-solid fa-heart' onClick={toggleFromFavourites} style={{color:'#f1069b'}}></i>}
+          {favouriteItems.find(item => item.productId === props.id).fav?<i class='fa-solid fa-heart' onClick={toggleFromFavourites}></i>:<i class='fa-regular fa-heart' onClick={toggleFromFavourites} style={{color:'#f1069b'}}></i>}
           <button>{props.brand}</button>
         </div>
       </div>

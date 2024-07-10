@@ -8,25 +8,25 @@ import { NavLink } from 'react-router-dom'
 const Cart = () => {
   const {cartItems,isLogedIn} = useContext(ShopContext);
   const state = isLogedIn;
-  function createCartItem(item,i){
-    const product = Product_List[i];
-    if(item !== 0){
-      return <SmallProduct key={product.id} src={product.src1} name={product.name} brand={product.brand} price={product.price} id={product.id} quantity={product.quantity} quantityChosen={cartItems[product.id-1]}/>
+  function createCartItem(item){
+    const product = Product_List.find(product => product._id === item.productId);
+    if(item.qty !== 0){
+      return <SmallProduct key={product._id} src={product.src1} name={product.name} brand={product.brand} price={product.price} id={product._id} quantity={product.quantity} quantityChosen={item.qty}/>
     }
   }
-  function priceCalculator(arr){
+  function priceCalculator(cartItems){
     let p = 0;
-    for(let i=0;i<arr.length;i++){
-      const product = Product_List[i];
-      p = p + (arr[i])*(product.price)
+    cartItems
+    for(let i=0;i<cartItems.length;i++){
+      const product = Product_List.find(product => product._id === cartItems[i].productId)
+      p = p + (cartItems[i].qty)*(product.price)
     }
     return p;
   }
-  function itemCalculator(arr){
+  function itemCalculator(cartItems){
     let it = 0;
-    for(let i=0;i<arr.length;i++){
-      const product = Product_List[i];
-      it = it + (arr[i])
+    for(let i=0;i<cartItems.length;i++){
+      it = it + (cartItems[i].qty)
     }
     return it;
   }

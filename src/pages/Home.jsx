@@ -12,13 +12,13 @@ const Home = () => {
 
   function createProductCard(product){
     const link = 'productCarousel'+product.id;
-    return <ProductCard src={product.src1} name={product.name} rating={product.rating} brand={product.brand} price={product.price} link={link} id={product.id}/>
+    return <ProductCard src={product.src1} name={product.name} rating={product.rating} brand={product.brand} price={product.price} link={link} id={product._id}/>
   }
   function createSpecialProduct(product){
-    return <Product src={product.src1} name={product.name} brand={product.brand} rating={product.rating} price={product.price} id={product.id}/>
+    return <Product src={product.src1} name={product.name} brand={product.brand} rating={product.rating} price={product.price} id={product._id}/>
   }
   function createProductCarousel(product){
-    return <ProductCarousel src1={product.src1} src2={product.src2} src3={product.src3} title={product.name} price={product.price} description={product.description} brand={product.brand} rating={product.rating} quantity={product.quantity} stock={product.stock} id={product.id}/>
+    return <ProductCarousel src1={product.src1} src2={product.src2} src3={product.src3} title={product.name} price={product.price} description={product.description} brand={product.brand} rating={product.rating} quantity={product.quantity} stock={product.stock} id={product._id}/>
   }
   const responsive = {
     desktop: {

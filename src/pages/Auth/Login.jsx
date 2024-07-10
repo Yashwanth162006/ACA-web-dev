@@ -5,43 +5,72 @@ import { ShopContext } from '../../contexts/ShopContext'
 import { toast } from 'react-toastify'
 
 const Login = () => {
-  const [email,setEmail] = useState("");
-  const [password,setPassword] = useState("");
-  const {isLogedIn,setIsLogedIn,userEmailAddress,userPassword,userName} = useContext(ShopContext);
+  const [form,setForm] = useState({})
+  const {setUserName} = useContext(ShopContext);
+  const {setIsLogedIn,setLoginToken,isAdmin,setIsAdmin} = useContext(ShopContext)
   const navigate = useNavigate();
-  function handleEmailChange(event){
-    setEmail(event.target.value);
+  function handleForm(event){
+    setForm({...form,
+      [event.target.name]: event.target.value
+    })
   }
-  function handlePasswordChange(event){
-    setPassword(event.target.value);
+  async function handleSubmit(event){
+    event.preventDefault()
+    const response = await fetch('http://127.0.0.1:3000/api/v1/users/login',{
+      method: 'POST',
+      body: JSON.stringify(form),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    const data = await response.text()
+    const dataObj = JSON.parse(data)
+    const token = dataObj.token
+    toast(dataObj.message)
+    if(token){
+      setLoginToken(token)
+      setIsLogedIn(1)
+      setUserName(dataObj.userName)
+      if(dataObj.role === 'admin') setIsAdmin(true)
+      navigate('/')
+    }
   }
-  function verifyCredentials(){
-    if(email===userEmailAddress && password===userPassword){
-      setIsLogedIn(1);
-      navigate('/');
-      toast(`Hello ${userName}`)
+  async function sendMail(event){
+    const response = await fetch('http://127.0.0.1:3000/api/v1/users/forgotPassword',{
+      method: 'POST',
+      body: JSON.stringify(form),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    const data = await response.text()
+    const dataObj = JSON.parse(data)
+    if(dataObj.status === 'success'){
+      toast(dataObj.message)
+      navigate('/resetPassword')
     }
-    else{
-      setPassword("");
-      toast("wrong credentials");
+    if(dataObj.status === 'fail'){
+      toast(dataObj.message)
     }
+    console.log(dataObj)
   }
   return (
     <div className='login-container'>
       <div className='login-form'>
-        <div className='login-content'>
+        <form className='login-content' onChange={handleForm} onSubmit={handleSubmit}>
           <h2>Sign In</h2>
           <div className="text-input-bar">
             <label>Email Address</label>
-            <input type='email' heading='Email Address' placeholder='Enter email' onChange={handleEmailChange} value={email}></input>
+            <input type='email' placeholder='Enter email' name='email' required></input>
           </div>
           <div className="text-input-bar">
             <label>Password</label>
-            <input type='password' heading='Password' placeholder='Enter password' onChange={handlePasswordChange} value={password}></input>
+            <input type='password' placeholder='Enter password' name='password' required></input>
           </div>
-          <button onClick={verifyCredentials}>Sign In</button>
+          <button>Sign In</button>
           <p>New customer?<NavLink className="reg" to='/register'>Register</NavLink></p>
-        </div>
+          <p><NavLink className="reg" onClick={sendMail}>Forgot Password</NavLink></p>
+        </form>
         <div className='login-img'>
           <img src= {LoginImg}/>
         </div>

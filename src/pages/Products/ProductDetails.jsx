@@ -9,8 +9,8 @@ import RelatedProducts from './RelatedProducts'
 const ProductDetails = () => {
   const [quantity,setQuantity] = useState(1);
   const {Product_List,setSelectedProduct,addToCart,favouriteItems,addToFavourites,removeFromFavourites} = useContext(ShopContext); 
-  const {id} = useParams();
-  const product = Product_List.find((product)=>product.id === Number(id));
+  const {_id} = useParams();
+  const product = Product_List.find((product)=>{return product._id === _id})
   function createArray(n) {
     const arr = [];
     for (let i = 1; i <= n; i++) {
@@ -28,10 +28,10 @@ const ProductDetails = () => {
     return <option value={value}>{value}</option>
   }
   function toggleFromFavourites(){
-    if(favouriteItems[product.id-1]===0){
-      addToFavourites(product.id);
+    if(favouriteItems.find(item => item.productId === _id).fav){
+      removeFromFavourites(_id)
     }else{
-      removeFromFavourites(product.id);
+      addToFavourites(_id)
     }
   }
   return (
@@ -39,8 +39,9 @@ const ProductDetails = () => {
       <NavLink to='/'><button className='button'><i class="fa-solid fa-arrow-left"></i>Go Back</button></NavLink>
       <div className='product-details-product'>
         <div className='product-details-product-left'>
+          {console.log(_id)}
           <img src={product.src1}/>
-            {favouriteItems[product.id-1]===0?<i class='fa-regular fa-heart' onClick={toggleFromFavourites}></i>:<i class='fa-solid fa-heart' onClick={toggleFromFavourites} style={{color:'#f1069b'}}></i>}
+            {favouriteItems.find(item => item.productId === _id).fav?<i class='fa-solid fa-heart' onClick={toggleFromFavourites}></i>:<i class='fa-regular fa-heart' onClick={toggleFromFavourites}></i>}
         </div>
         <div className='product-details-product-right'>
           <h1 className='name'>{product.name}</h1>
@@ -56,7 +57,7 @@ const ProductDetails = () => {
                 {createArray(product.quantity).map(createOption)}
             </select>
           </div>
-          <NavLink to='/cart'><button onClick={()=>addToCart(Number(id),quantity)}>Add To Cart</button></NavLink>
+          <NavLink to='/cart'><button onClick={()=>addToCart(_id,quantity)}>Add To Cart</button></NavLink>
         </div>
       </div>
       <div className='product-review'>

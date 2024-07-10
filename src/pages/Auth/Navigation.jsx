@@ -7,21 +7,20 @@ import { toast } from 'react-toastify'
 
 const Navigation = () => {
   
-  const {cartItems,favouriteItems,isLogedIn,setIsLogedIn,userName} = useContext(ShopContext);
+  const {cartItems,favouriteItems,isLogedIn,setIsLogedIn,userName,isAdmin} = useContext(ShopContext);
   const navigate = useNavigate();
   function length(arr){
     let sum = 0;
     for(let i=0;i<arr.length;i++){
-      sum=sum+arr[i];
+      sum=sum+arr[i].qty;
     }
     return sum;
   }
   function length1(arr){
-    let sum=0;
+    let sum = 0;
     for(let i=0;i<arr.length;i++){
-        sum=sum+arr[i];
+      if(arr[i].fav) sum = sum+1
     }
-    console.log(sum);
     return sum;
   }
   function handleLogout(){
@@ -61,6 +60,11 @@ const Navigation = () => {
             </div>
           </div>
           <div className='bottom'>
+          {
+              isLogedIn&&isAdmin?<div className='logout-profile'>
+              <NavLink to='/admin'><button className='profile-button'>Admin</button></NavLink>
+              </div>:null
+            }
             {isLogedIn?<div className='logout-profile'>
               <button onClick={handleLogout} className='logout-button'>Logout</button>
               <NavLink to='/profile'><button className='profile-button'>Profile</button></NavLink>

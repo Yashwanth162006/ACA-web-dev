@@ -20,7 +20,7 @@ const SmallProduct = (props) => {
     addToCart(props.id,newNum);
   }
   function removeItem(){
-    removeFromCart(Number(props.id));
+    removeFromCart(props.id);
     toast('Removed From cart');
   }
   return (

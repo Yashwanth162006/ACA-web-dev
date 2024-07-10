@@ -3,7 +3,6 @@ import ProductTabs from './Products/ProductTabs'
 import DSLR_1 from '../Images/DSLR/DSLR-1.png'
 import Product_List from '../All_Products.js';
 import { NavLink } from 'react-router-dom';
-import { ShopContext } from '../contexts/ShopContext.jsx';
 
 
 const Shop = () => {
@@ -29,7 +28,7 @@ const Shop = () => {
   }, [inputValue,categoryFilteredList]);
 
   function createProduct(product){
-    return <ProductTabs src1={product.src1} brand={product.brand} name={product.name} description={product.description} price={product.price} id={product.id}/>
+    return <ProductTabs src1={product.src1} brand={product.brand} name={product.name} description={product.description} price={product.price} id={product._id}/>
   }
   function handleInputChange(event){
     const currCategory = event.target.value;

@@ -6,64 +6,62 @@ import { ShopContext } from '../../contexts/ShopContext'
 import { toast } from 'react-toastify'
 
 const Register = () => {
-  const [regName,setRegName] = useState("");
-  const [regEmailAddress,setRegEmailAddress] = useState("");
-  const [regPassword,setRegPassword] = useState("");
-  const [regPasswordConfirmation,setRegPasswordConfirmation] = useState("");
-  const {setUserName,setUserEmailAddress,setUserPassword} = useContext(ShopContext);
+  const [form,setForm] = useState({})
+  const {setIsLogedIn,setLoginToken} = useContext(ShopContext);
+  const {setUserName,isAdmin,setIsAdmin} = useContext(ShopContext)
   const navigate = useNavigate();
-  function handleChange1(event){
-    setRegName(event.target.value);
-    console(regName);
+  
+  function handleForm(event){
+    setForm({...form,
+      [event.target.name]: event.target.value
+    })
   }
-  function handleChange2(event){
-    setRegEmailAddress(event.target.value);
-  }
-  function handleChange3(event){
-    setRegPassword(event.target.value);
-  }
-  function handleChange4(event){
-    setRegPasswordConfirmation(event.target.value);
-  }
-  function registerUser(){
-    if((regName==="") || (regEmailAddress==="") || (regPassword==="") || (regPasswordConfirmation==="")){
-      toast('Enter all the fields');
-      return;
-    }
-    setUserName(regName);
-    setUserEmailAddress(regEmailAddress);
-    if(regPassword === regPasswordConfirmation){
-      setUserPassword(regPassword);
-      navigate('/login');
-      toast('Successfully Registered');
-    }else{
-      toast('Passwords did not match');
+  async function handleSubmit(event){
+    event.preventDefault()
+    const response = await fetch('http://127.0.0.1:3000/api/v1/users/signup',{
+      method: 'POST',
+      body: JSON.stringify(form),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    const data = await response.text()
+    const dataObj = JSON.parse(data)
+    const token = dataObj.token
+    console.log(data)
+    toast(dataObj.message)
+    if(token){
+      setLoginToken(token)
+      setIsLogedIn(1)
+      setUserName(dataObj.userName)
+      if(dataObj.role === 'admin') setIsAdmin(true)
+      navigate('/')
     }
   }
   return (
     <div className='registration-container'>
       <div className='registration-form'>
-        <div className='registration-content'>
+        <form className='registration-content' onChange={handleForm} onSubmit={handleSubmit}>
           <h2>Register</h2>
           <div className="text-input-bar">
             <label>Name</label>
-            <input type='text' heading='Name' placeholder='Enter name' value={regName} onChange={handleChange1}></input>
+            <input type='text' name='name' placeholder='Enter name' required></input>
           </div>
           <div className="text-input-bar">
             <label>Email Address</label>
-            <input type='text' heading='Email Address' placeholder='Enter email' value={regEmailAddress} onChange={handleChange2}></input>
+            <input type='text'  name='email' placeholder='Enter email' required></input>
           </div>
           <div className="text-input-bar">
             <label>Enter Password</label>
-            <input type='password'heading='Password' placeholder='Enter password' value={regPassword} onChange={handleChange3}></input>
+            <input type='password' name='password' placeholder='Enter password' required></input>
           </div>
           <div className="text-input-bar">
             <label>Confirm Password</label>
-            <input type='password' heading='Confirm Password' placeholder='Confirm password' value={regPasswordConfirmation} onChange={handleChange4}></input>
+            <input type='password'  name='confirmPassword' placeholder='Confirm password' required></input>
           </div>
-          <button onClick={registerUser}>Register</button>
+          <button>Register</button>
           <p>Already have an account?<NavLink className="log" to='/login'>Login</NavLink></p>
-        </div>
+        </form>
         <div className='registration-img'>
           <img src={RegisterImg}/>
         </div>

@@ -250,7 +250,7 @@
     cursor: pointer;
 }
 .product-card>.fa-heart{
-    color: white;
+    color: pink;
     position: relative;
     width:fit-content;
     bottom: 240px;
@@ -518,7 +518,7 @@
     background-color: #fae8f3;
 }
 .special-product>.fa-heart{
-    color: rgb(150, 147, 147);
+    color: pink;
     position: relative;
     bottom: 400px;
     left: 400px;
@@ -854,7 +854,7 @@
     position: relative;
     bottom: 170px;
     left: 90%;
-    color: rgb(125, 125, 125);
+    color: pink;
     cursor: pointer;
 }
 .shop-product-card-icons>i:hover{
