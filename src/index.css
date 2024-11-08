@@ -596,12 +596,12 @@
     font-weight: lighter;
 }
 .cart-item-name{
-    color: #f1069b;
+    color: #f3599e;
     font-family: 'Poppins';
     font-size: 1.05rem;
     margin: 0;
 }
-.product-for-cart>select{
+.product-for-cart>#quantity-of-products{
     height: 35px;
     width: 35px;
     align-self: center;

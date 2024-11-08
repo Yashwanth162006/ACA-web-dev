@@ -34,6 +34,8 @@ const Register = () => {
       setLoginToken(token)
       setIsLogedIn(1)
       setUserName(dataObj.userName)
+      setIsAdmin(false)
+      console.log(dataObj.role)
       if(dataObj.role === 'admin') setIsAdmin(true)
       navigate('/')
     }

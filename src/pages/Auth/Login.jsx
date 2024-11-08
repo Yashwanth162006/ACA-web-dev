@@ -31,7 +31,11 @@ const Login = () => {
       setLoginToken(token)
       setIsLogedIn(1)
       setUserName(dataObj.userName)
-      if(dataObj.role === 'admin') setIsAdmin(true)
+      setIsAdmin(false)
+      if(dataObj.role === "admin"){
+        console.log('hello')
+        setIsAdmin(true)
+      }
       navigate('/')
     }
   }
